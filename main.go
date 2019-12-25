@@ -45,8 +45,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func messageHandler(w http.ResponseWriter, r *http.Request) {
-	m := r.FormValue("message")
-	log.Printf("messageHandler: %s", m)
-	Draw(m)
+	message = r.FormValue("message")
+	log.Printf("messageHandler: %s", message)
+	Draw(message)
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }

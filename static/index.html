@@ -42,9 +42,20 @@
 </head>
 
 <body>
-  <form action="/message" method="post">
-    <textarea name="message" autofocus="true" rows="3">{{.Message}}</textarea>
-    <button type="submit">send</button>
+  <form id="messageForm" action="/message" method="post">
+    <textarea id="textArea" name="message" autofocus="true" rows="3" placeholder="{{.Message}}"></textarea>
+    <button id="sendButton" type="submit">send</button>
   </form>
+  <script type="text/javascript">
+    messageForm = document.getElementById("messageForm")
+    textArea = document.getElementById("textArea")
+
+    textArea.addEventListener("keypress", function(e) {
+      if (event.which === 13) {
+        event.preventDefault();
+        messageForm.dispatchEvent(new Event("submit", {cancelable: true}));
+      }
+    });
+  </script>
 </body>
 </html>
