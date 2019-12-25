@@ -7,6 +7,5 @@ We have two applications that work together. The Go app `txt` is a simple web se
 
 # TODO
 
-- persist message to text file
 - bash install w/ unit files
-- python script
+- python inky script

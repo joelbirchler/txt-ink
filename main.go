@@ -2,6 +2,7 @@ package main
 
 import (
 	"html/template"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"time"
@@ -10,13 +11,14 @@ import (
 )
 
 const port = "8080"
+const savePath = "message.txt"
 
 var homeTemplate *template.Template
 var message string
 
 func init() {
 	homeTemplate = template.Must(template.ParseFiles("static/index.html"))
-	message = "Hi!"
+	loadMessage()
 }
 
 func main() {
@@ -49,10 +51,30 @@ func imageHandler(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "./image.png")
 }
 
-
 func messageHandler(w http.ResponseWriter, r *http.Request) {
 	message = r.FormValue("message")
 	log.Printf("messageHandler: %s", message)
+
 	Draw(message)
+	saveMessage()
+
 	http.Redirect(w, r, "/", http.StatusSeeOther)
+}
+
+func loadMessage() {
+	content, err := ioutil.ReadFile(savePath)
+	if err != nil {
+		message = "Hello!"
+		return
+	}
+
+	message = string(content)
+	log.Printf("message loaded from file: %s", message)
+}
+
+func saveMessage() {
+	err := ioutil.WriteFile(savePath, []byte(message), 0644)
+	if err != nil {
+		log.Printf("error saving message: %s", err)
+	}
 }
