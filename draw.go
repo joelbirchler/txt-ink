@@ -6,6 +6,7 @@ import (
 	"image/color"
 	"image/draw"
 	"image/png"
+	"log"
 	"os"
 	"strings"
 
@@ -17,15 +18,17 @@ import (
 
 const width, height, padding, lineHeight int = 212, 104, 20, 20
 
-func main() {
+func Draw(s string) {
 	img := image.NewRGBA(image.Rect(0, 0, width, height))
 
 	draw.Draw(img, img.Bounds(), &image.Uniform{color.Black}, image.ZP, draw.Src)
-	drawText(img, padding, padding+8, "Hi this is a longer bit of text to test wrapping. Does it work Obi? Is this even longer?")
+	drawText(img, padding, padding + 8, s)
 
 	if err := saveImage(img, "image.png"); err != nil {
 		panic(err)
 	}
+
+	log.Printf("Image saved.")
 }
 
 func drawText(img draw.Image, x, y int, s string) {
