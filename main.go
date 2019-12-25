@@ -23,6 +23,7 @@ func main() {
 	r := mux.NewRouter()
 
 	r.Path("/").HandlerFunc(homeHandler)
+	r.Path("/image.png").HandlerFunc(imageHandler)
 	r.Path("/message").HandlerFunc(messageHandler).Methods("POST")
 
 	srv := &http.Server{
@@ -43,6 +44,11 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
   w.WriteHeader(http.StatusOK)
 	homeTemplate.Execute(w, struct{Message string}{message})
 }
+
+func imageHandler(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./image.png")
+}
+
 
 func messageHandler(w http.ResponseWriter, r *http.Request) {
 	message = r.FormValue("message")
