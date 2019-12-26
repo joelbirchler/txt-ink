@@ -10,7 +10,7 @@ import (
 )
 
 const port = "8080"
-const savePath = "message.txt"
+const txtPath, imagePath = "message.txt", "message.png"
 
 var message string
 
@@ -45,7 +45,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func imageHandler(w http.ResponseWriter, r *http.Request) {
-	http.ServeFile(w, r, "./image.png")
+	http.ServeFile(w, r, imagePath)
 }
 
 func messageHandler(w http.ResponseWriter, r *http.Request) {
@@ -59,7 +59,7 @@ func messageHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func loadMessage() {
-	content, err := ioutil.ReadFile(savePath)
+	content, err := ioutil.ReadFile(txtPath)
 	if err != nil {
 		message = "Hello!"
 		return
@@ -70,7 +70,7 @@ func loadMessage() {
 }
 
 func saveMessage() {
-	err := ioutil.WriteFile(savePath, []byte(message), 0644)
+	err := ioutil.WriteFile(txtPath, []byte(message), 0644)
 	if err != nil {
 		log.Printf("error saving message: %s", err)
 	}

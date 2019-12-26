@@ -24,7 +24,7 @@ func Draw(s string) {
 	draw.Draw(img, img.Bounds(), &image.Uniform{color.Black}, image.ZP, draw.Src)
 	drawText(img, padding, padding + 8, s)
 
-	if err := saveImage(img, "image.png"); err != nil {
+	if err := saveImage(img, imagePath); err != nil {
 		panic(err)
 	}
 
