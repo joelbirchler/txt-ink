@@ -13,9 +13,3 @@ Building the GoLang app locally is as simple as running `go build`. Use the ARMv
 # Installing
 
 Run the `./install.sh` script to build, copy the files to a remote destination, and then setup the systemd services.
-
-
-# TODO
-
-- python inky script command line
-- bash install w/ unit files
