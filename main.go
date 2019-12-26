@@ -1,7 +1,6 @@
 package main
 
 import (
-	"html/template"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -13,11 +12,9 @@ import (
 const port = "8080"
 const savePath = "message.txt"
 
-var homeTemplate *template.Template
 var message string
 
 func init() {
-	homeTemplate = template.Must(template.ParseFiles("static/index.html"))
 	loadMessage()
 }
 
